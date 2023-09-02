@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打鼓</title>
+    <style>
+        html {
+            font-size: 10px;
+            background:url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202108%2F06%2F20210806134526_364bb.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1696150517&t=46ed261e740e8dba85457fb896b1470f) bottom center;
+            background-size: cover; /*将图片背景等比缩放，直到完全覆盖容器*/
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+        .keys {
+            display: flex;
+            flex: 1; /* 可以拉伸 可以压缩 设置基准长度为0 */
+            min-height: 100vh; /* 设置高度为视口高度的100% */
+            align-items: center;
+            justify-content: center;
+        }
+        .key {
+            width: 100px;
+            border: 4px solid black;
+            font-size: 1.5rem;
+            border-radius: 5px;
+            padding: 1rem 0.5rem;
+            color: white;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.4);
+            margin: 0 10px;
+        }
+        .key kbd {
+            display: block;
+            font-size: 40px;
+            font-family: monospace;
+        }
+        .key span {
+            color: #ffc600;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .playing {
+            border-color: #ffc600;
+            transform: scale(1.1); /* 盒子缩放 */
+            box-shadow: 0 0 10px #ffc600;
+        }
+    </style>
+</head>
+<body>
+    <div class="keys">
+        <div data-key="65" class="key">
+            <kbd>A</kbd>
+            <span>clap</span>
+            <audio src="./sounds/clap.wav"></audio>
+        </div>
+        <div data-key="83" class="key">
+            <kbd>S</kbd>
+            <span>hihat</span>
+            <audio src="./sounds/hihat.wav"></audio>
+        </div>
+        <div data-key="68" class="key">
+            <kbd>D</kbd>
+            <span>kick</span>
+            <audio src="./sounds/kick.wav"></audio>
+        </div>
+        <div data-key="70" class="key">
+            <kbd>F</kbd>
+            <span>openhat</span>
+            <audio src="./sounds/openhat.wav"></audio>
+        </div>
+        <div data-key="71" class="key">
+            <kbd>G</kbd>
+            <span>boom</span>
+            <audio src="./sounds/boom.wav"></audio>
+        </div>
+        <div data-key="72" class="key">
+            <kbd>H</kbd>
+            <span>ride</span>
+            <audio src="./sounds/ride.wav"></audio>
+        </div>
+        <div data-key="74" class="key">
+            <kbd>J</kbd>
+            <span>snare</span>
+            <audio src="./sounds/snare.wav"></audio>
+        </div>
+        <div data-key="75" class="key">
+            <kbd>K</kbd>
+            <span>tom</span>
+            <audio src="./sounds/tom.wav"></audio>
+        </div>
+        <div data-key="76" class="key">
+            <kbd>L</kbd>
+            <span>tink</span>
+            <audio src="./sounds/tink.wav"></audio>
+        </div>
+    </div>
+    <script>
+        // 添加键盘按下事件
+        document.addEventListener('keydown', (e) => {
+            // console.log(e.keyCode)
+            const keyDiv = document.querySelector(`div[data-key="${e.keyCode}"]`)
+            if (keyDiv) {
+                // 查找音频
+                const audio = keyDiv.querySelector('audio')
+                // 给点击的按钮加上效果
+                keyDiv.classList.add('playing')
+                // 将音频的播放进度拖至开始的位置
+                audio.currentTime = 0
+                // 播放音频
+                audio.play()
+                // 延时取消效果
+                setTimeout(() => {
+                    keyDiv.classList.remove('playing')
+                }, 100)
+            }
+        })
+    </script>
+</body>
+</html>
