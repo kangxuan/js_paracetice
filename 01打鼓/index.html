@@ -32,6 +32,7 @@
             text-align: center;
             background-color: rgba(0, 0, 0, 0.4);
             margin: 0 10px;
+            transition: all 0.07s;
         }
         .key kbd {
             display: block;
@@ -100,8 +101,14 @@
         </div>
     </div>
     <script>
+        // 定义个去除playing样式的函数
+        function removeTransition(event) {
+            if (event.propertyName !== 'transform') return
+            event.target.classList.remove('playing')
+        }
+
         // 添加键盘按下事件
-        document.addEventListener('keydown', (e) => {
+        window.addEventListener('keydown', (e) => {
             // console.log(e.keyCode)
             const keyDiv = document.querySelector(`div[data-key="${e.keyCode}"]`)
             if (keyDiv) {
@@ -113,12 +120,23 @@
                 audio.currentTime = 0
                 // 播放音频
                 audio.play()
-                // 延时取消效果
+                // 延时取消效果，但这种方法会开启非常多的延时器
                 setTimeout(() => {
                     keyDiv.classList.remove('playing')
                 }, 100)
             }
         })
+
+        // // 获取页面所有按钮元素，将伪数组转换成数组
+        // const keys = Array.from(document.querySelectorAll('.key'))
+        // // 给所有按钮都加上transition事件监听
+        // keys.forEach(key => {
+        //     key.addEventListener('transitionend', removeTransition)
+        // });
+
+        // 上面可以采用事件委托，会存在按时间按playing不会被移除
+        // const keys = document.querySelector('.keys')
+        // keys.addEventListener('transitionend', removeTransition)
     </script>
 </body>
 </html>
