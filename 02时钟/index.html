@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时钟</title>
+    <style>
+        html,body {
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            background: skyblue;
+            font-family: 'helvetica neue';
+            text-align: center;
+            font-size: 10px;
+            align-items: center;
+        }
+        body {
+            font-size: 2rem;
+            display: flex;
+            flex: 1;
+            min-height: 100vh; /* 100%视口高 */
+        }
+        .clock {
+            width: 30rem;
+            height: 30rem;
+            border-radius: 50%;
+            border: 2rem solid white;
+            margin: 5rem auto;
+            padding: 2rem;
+            position: relative; /* 设置为相对对位，主要是为了让子元素绝对定位以父级为参考 */
+            background: rgba(0, 0, 0, .4);
+            box-shadow:
+                0 0 0 4px rgba(0,0,0,0.1),
+                inset 0 0 0 3px #EFEFEF,
+                inset 0 0 10px black,
+                0 0 10px rgba(0,0,0,0.2);
+        }
+        .clock-face {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform: translateY(-3px); /* 表盘在Y轴向上偏移3px，使其有一种从向上看的感觉 */
+        }
+        /* 在元素最后的位置创建一个元素，用来做时钟的中心点 */
+        .clock-face::after {
+            width: 1em;
+            height: 1em;
+            left: 50%; /* 居中 */
+            top: 50%;
+            position: absolute; /* 绝对定位 */
+            display: block;
+            content: '';
+            background-color: #a8c5d1;
+            border-radius: 50%;
+            box-shadow:
+                    0 0 0 2px rgba(0,0,0,0.1),
+                    0 0 10px rgba(0,0,0,0.2);
+            transform: translate(-50%, -50%);
+        }
+        .hand {
+            /* width:50%; */
+            /* height:6px; */
+            background-color:#fff;
+            position: absolute;
+            top:50%;
+            right: 50%;
+            box-shadow: 0 0 0 .1px #fff,
+                0 0 0 1px rgba(0,0,0,0.1),
+                0 0 8px rgba(0,0,0,0.4),
+                2px 5px 1px rgba(0, 0, 0, .5);
+            transform-origin: 100% 50%; /* 变换原点 */
+            transform: rotate(90deg);
+            transition-timing-function: cubic-bezier(0.9, 0.54, 0.26, 1.68);
+        }
+        .hour-hand {
+            width: 40%;
+            height: 10px;
+            margin-top: -5px;
+            border-bottom-left-radius: .5em;
+            border-top-left-radius: .5em;
+            transition: all 3s;
+            transform: rotate(420deg);
+        }
+        .min-hand {
+            width: 45%;
+            height: 5px;
+            margin-top: -2.5px;
+            transition: all .1s cubic-bezier(0.9, 0.54, 0.26, 1.68);
+            transform: rotate(60deg);
+        }
+        .second-hand {
+            width: 50%;
+            height: 2px;
+            border-bottom-left-radius: 100%;
+            border-top-left-radius: 100%;
+            transition: all .05s cubic-bezier(0.9, 0.54, 0.26, 1.68);
+            background-color: red;
+            transform: rotate(120deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="clock-face">
+            <div class="hand hour-hand"></div>
+            <div class="hand min-hand"></div>
+            <div class="hand second-hand"></div>
+        </div>
+    </div>
+    <script>
+        const hour = document.querySelector('.hour-hand')
+        const min = document.querySelector('.min-hand')
+        const second = document.querySelector('.second-hand')
+        
+        
+        setInterval(function(){
+            const date = new Date()
+            const h = date.getHours()
+            const m = date.getMinutes()
+            const s = date.getSeconds()
+            console.log(h, m, s)
+
+            hour.style.transform = `rotate(${h*30+90}deg)`
+            min.style.transform = `rotate(${m*6+90}deg)`
+            second.style.transform = `rotate(${s*6+90}deg)`
+        }, 1000)
+
+        
+    </script>
+</body>
+</html>
