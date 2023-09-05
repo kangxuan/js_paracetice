@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片渲染</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            font-size: 10px;
+            font-family: 'helvetica neue';
+            background-color: black;
+            color: white;
+        }
+        .variable {
+            background-color: darkblue;
+            width: 80vw;
+            min-height: 100vh;
+            margin: 0 auto;
+            text-align: center;
+            overflow: hidden;
+        }
+        .var-top {
+            margin: 3rem auto;
+        }
+        .var-top h2 {
+            font-size: 3rem;
+            word-spacing: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="variable">
+        <div class="var-top">
+            <h2>变更渲染</h2>
+            <div class="control">
+                边框：<input type="range" name="spacing" id="spacing" min="0" max="100" value="0">
+                模糊：<input type="range" name="blur" id="blur" min="0" max="30" value="0">
+                边框颜色：<input type="color" name="color" id="color">
+            </div>
+            <label for="spacing">0px</label>
+            <label for="blur">0px</label>
+            <label for="color">#000000</label>
+        </div>
+        <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500" alt="">
+    </div>
+    <script>
+        const spacing = document.querySelector('#spacing')
+        const blur = document.querySelector('#blur')
+        const color = document.querySelector('#color')
+        const spacingLabel = document.querySelector('label[for="spacing"]')
+        const blurLabel = document.querySelector('label[for="blur"]')
+        const colorLabel = document.querySelector('label[for="color"]')
+
+        const img = document.querySelector('img')
+        
+        // 设置图片的边框颜色
+        spacing.addEventListener('input', function() {
+            spacingLabel.innerHTML = spacing.value + 'px'
+            img.style.borderWidth = spacing.value + 'px'
+            img.style.borderStyle = 'solid'
+            img.style.borderColor = colorLabel.innerHTML
+        })
+
+        // 控制图片的模糊程度
+        blur.addEventListener('input', function() {
+            blurLabel.innerHTML = blur.value + 'px'
+            img.style.filter = `blur(${blur.value + 'px'})`
+        })
+
+        color.addEventListener('input', function() {
+            colorLabel.innerHTML = color.value
+            img.style.borderColor = color.value
+        })
+    </script>
+</body>
+</html>
