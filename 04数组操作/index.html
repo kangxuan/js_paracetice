@@ -46,8 +46,9 @@
 
         // Array.prototype.sort()
         // 3. 把他们按照出生日期从大到小进行排序
-        inventors.sort((a, b) => a.year - b.year)
-        console.table(inventors)
+        // inventors.sort((a, b) => a.year - b.year)
+        const orderd = inventors.sort((a, b) => a.year > b.year ? 1 : -1)
+        console.table(orderd)
 
         // Array.prototype.reduce()
         // 4. 计算所有的发明家加起来一共活了多少岁
@@ -75,23 +76,29 @@
 
         // 7. sort Exercise
         // Sort the people alphabetically by last name
-        const splitPeopleArray = people.map(item => {
-            return item.split(' ')
+        // const splitPeopleArray = people.map(item => {
+        //     return item.split(' ')
+        // })
+        // splitPeopleArray.sort((a, b) => {
+        //     // 字符串比较方式
+        //     if (a[1] > b[1]) {
+        //         return 1
+        //     } else if (a[1] < b[1]) {
+        //         return -1
+        //     } else {
+        //         return 0
+        //     }
+        // })
+        // const result = splitPeopleArray.map(item => {
+        //     return item.join(' ')
+        // })
+        // console.table(result)
+        const alpha = people.sort((a, b) => {
+            const [aFirst, aLast] = a.split(' ')
+            const [bFirst, bLast] = b.split(' ')
+            return aLast > bLast ? 1 : -1
         })
-        splitPeopleArray.sort((a, b) => {
-            // 字符串比较方式
-            if (a[1] > b[1]) {
-                return 1
-            } else if (a[1] < b[1]) {
-                return -1
-            } else {
-                return 0
-            }
-        })
-        const result = splitPeopleArray.map(item => {
-            return item.join(' ')
-        })
-        console.table(result)
+        console.table(alpha)
 
         // 8. Reduce Exercise
         // Sum up the instances of each of these
